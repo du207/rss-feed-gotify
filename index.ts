@@ -21,10 +21,10 @@ const sendGotify = async (title: string, message: string, priority: number) => {
             message,
             priority,
             extras: {
-            "client::display": {
-                "contentType": "text/markdown"
+                "client::display": {
+                    "contentType": "text/markdown"
+                }
             }
-        }
         },
         headers: {
             "Content-Type": "application/json"
