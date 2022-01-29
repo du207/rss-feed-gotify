@@ -1,0 +1,8 @@
+{
+    "feeds": [
+    ],
+    "gotify": {
+        "url": "https://gotify-url",
+        "token": "your-token"
+    }
+}
