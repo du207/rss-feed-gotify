@@ -1,8 +1,10 @@
 import Parser, {Item} from "rss-parser";
 import { feeds, gotify } from "./config.json";
 import axios from "axios";
+import Turndown from "turndown";
 
 const parser = new Parser();
+const turndown = new Turndown();
 
 interface stateType {
     [key: string]: {
@@ -45,7 +47,8 @@ const interval = setInterval(async () => {
             }
 
             if (latestFeed.link !== cache[url].link) {
-                await sendGotify(latestFeed.title!, latestFeed.link!, 2);
+                const text = `${latestFeed.link}\n\n${turndown.turndown(latestFeed.content ?? "")}`;
+                await sendGotify(latestFeed.title!, text, 2);
                 cache[url] = latestFeed;
             }
         }
