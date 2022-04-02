@@ -36,8 +36,8 @@ const sendGotify = async (title: string, message: string, priority: number) => {
 };
 
 const interval = setInterval(async () => {
-    try {
-        for (const url of feeds) {
+    for (const url of feeds) {
+        try {
             const feed = await parser.parseURL(url);
             const latestFeed = feed.items.reduce((a, b) => (new Date(a.pubDate!) > new Date(b.pubDate!) ? a : b));
 
@@ -47,12 +47,15 @@ const interval = setInterval(async () => {
             }
 
             if (latestFeed.link !== cache[url].link) {
+		console.log(`New feed in ${url}`);
                 const text = `${latestFeed.link}\n\n${turndown.turndown(latestFeed.content ?? "")}`;
                 await sendGotify(latestFeed.title!, text, 2);
                 cache[url] = latestFeed;
             }
+        } catch (err) {
+	    console.log(`Error in ${url}`);
+            console.error(err);
+	    continue;
         }
-    } catch (err) {
-        console.error(err);
     }
 }, /* 5 * 1000); // */ 30 * 60 * 1000); // 30 mins
