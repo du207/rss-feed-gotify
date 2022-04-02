@@ -53,9 +53,12 @@ const interval = setInterval(async () => {
                 cache[url] = latestFeed;
             }
         } catch (err) {
-	    console.log(`Error in ${url}`);
+	    console.error(`Error in ${url}`);
+	    console.error(new Date().toISOString());
             console.error(err);
 	    continue;
         }
     }
 }, /* 5 * 1000); // */ 30 * 60 * 1000); // 30 mins
+
+console.log("Started");
