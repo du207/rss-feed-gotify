@@ -59,6 +59,6 @@ const interval = setInterval(async () => {
 	    continue;
         }
     }
-}, /* 5 * 1000); // */ 30 * 60 * 1000); // 30 mins
+}, /* 5 * 1000); // */ 10 * 60 * 1000); // 10 mins
 
 console.log("Started");
